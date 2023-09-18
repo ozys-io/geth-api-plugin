@@ -1,0 +1,45 @@
+{
+  "search.exclude": {
+    "**/node_modules": false
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "debug.javascript.autoAttachFilter": "always",
+  "cSpell.words": [
+    "appenders",
+    "bithumb",
+    "blockheight",
+    "coinone",
+    "CONV",
+    "crcs",
+    "Dataless",
+    "datetime",
+    "ecopot",
+    "Forex",
+    "Inno",
+    "KRWUSD",
+    "KSLP",
+    "marketcap",
+    "mediumtext",
+    "middlewares",
+    "mysecretkey",
+    "ormconfig",
+    "OZYS",
+    "pnls",
+    "resave",
+    "subn",
+    "tinyint",
+    "upbit"
+  ],
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    "yarn.lock",
+    "package.json"
+  ]
+}
