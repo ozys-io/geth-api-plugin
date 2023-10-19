@@ -9,7 +9,7 @@ export class AppService implements OnModuleInit{
     this.client = new Client(
       {
         port: Number(process.env.RPC_PORT),
-        host: Number(process.env.RPC_HOST),
+        host: process.env.RPC_HOST,
         strict: false
       }
     )
