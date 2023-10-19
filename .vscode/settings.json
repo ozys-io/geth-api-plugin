@@ -8,6 +8,7 @@
   "debug.javascript.autoAttachFilter": "always",
   "cSpell.words": [
     "appenders",
+    "autorestart",
     "bithumb",
     "blockheight",
     "coinone",
