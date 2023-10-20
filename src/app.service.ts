@@ -15,23 +15,32 @@ export class AppService implements OnModuleInit {
 
   async importChainFromString(blockRlp: string): Promise<string> {
     const rlpFileName = "block.rlp";
+    const rlpFilePath = process.env.RLP_FILE_DIR;
     const base64String = Buffer.from(blockRlp.slice(2), "hex").toString("base64");
-    await this.wrappedExec(`echo ${blockRlp} | base64 -d > ${rlpFileName}`);
+    await this.wrappedExec(`echo ${base64String} | base64 -d > ${rlpFileName}`);
     // https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-admin
-    const result = await this.rpcCall({ jsonrpc: "2.0", method: "admin_importChain", params: [rlpFileName] });
-
-    return blockRlp;
+    try {
+      const result = String(await this.rpcCall({ jsonrpc: "2.0", method: "admin_importChain", params: [`${rlpFilePath}/${rlpFileName}`] }));
+      return result;
+    } catch (e) {
+      return (e as Error).message;
+    }
   }
 
   private rpcCall(rpc: { jsonrpc; method; params }) {
     return new Promise((resolve, reject) => {
+      let result;
+      let err;
       this.client.call(rpc, (error, res, stderr) => {
+        err = error;
+        result = res;
         if (error) {
           Logger.error(error, stderr);
-          reject(error);
         }
-        resolve(res);
+        return;
       });
+      if (err) reject(err);
+      resolve(result);
     });
   }
 
