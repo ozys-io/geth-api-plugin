@@ -15,7 +15,8 @@ export class AppService implements OnModuleInit {
 
   async importChainFromString(blockRlp: string): Promise<string> {
     const rlpFileName = "block.rlp";
-    await this.wrappedExec(`echo ${blockRlp} > ${rlpFileName}`);
+    const base64String = Buffer.from(blockRlp.slice(2), "hex").toString("base64");
+    await this.wrappedExec(`echo ${blockRlp} | base64 -d > ${rlpFileName}`);
     // https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-admin
     const result = await this.rpcCall({ jsonrpc: "2.0", method: "admin_importChain", params: [rlpFileName] });
 
