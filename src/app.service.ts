@@ -1,6 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from "@nestjs/common";
 import { exec } from "child_process";
 import { Client } from "node-json-rpc";
+import * as fs from "fs";
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -17,7 +18,8 @@ export class AppService implements OnModuleInit {
     const rlpFileName = "block.rlp";
     const rlpFilePath = process.env.RLP_FILE_DIR;
     const base64String = Buffer.from(blockRlp.slice(2), "hex").toString("base64");
-    await this.wrappedExec(`echo ${base64String} | base64 -d > ${rlpFileName}`);
+    fs.writeFileSync(rlpFileName, base64String);
+    await this.wrappedExec(`cat ${rlpFileName} | base64 -d > ${rlpFileName}`);
     // https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-admin
     try {
       const result = String(await this.rpcCall({ jsonrpc: "2.0", method: "admin_importChain", params: [`${rlpFilePath}/${rlpFileName}`] }));
