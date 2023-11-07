@@ -18,8 +18,8 @@ export class AppService implements OnModuleInit {
     const rlpFileName = "block.rlp";
     const rlpFilePath = process.env.RLP_FILE_DIR;
     const base64String = Buffer.from(blockRlp.slice(2), "hex").toString("base64");
-    fs.writeFileSync(rlpFileName, base64String);
-    await this.wrappedExec(`cat ${rlpFileName} | base64 -d > ${rlpFileName}`);
+    fs.writeFileSync(rlpFileName + ".base64", base64String);
+    await this.wrappedExec(`cat ${rlpFileName}.base64 | base64 -d > ${rlpFileName}`);
     // https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-admin
     try {
       const result = String(await this.rpcCall({ jsonrpc: "2.0", method: "admin_importChain", params: [`${rlpFilePath}/${rlpFileName}`] }));
