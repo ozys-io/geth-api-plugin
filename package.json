@@ -25,6 +25,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "node-json-rpc": "^0.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
